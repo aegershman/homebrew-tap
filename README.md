@@ -18,3 +18,11 @@ brew create <url> --tap aegershman/homebrew-tap
 ```
 
 - after having created the repository, tapped using `brew tap aegershman/homebrew-tap`, and `cd`ing into the directory with `cd $(brew --repo aegershman/homebrew-tap)`, in order to push changes I had to set the remote origin to the `ssh` version rather than `https` using `git@github.com:aegershman/homebrew-tap.git`.
+
+- example of creating the `om-linux` tap:
+
+```sh
+brew create \
+  https://github.com/pivotal-cf/om/releases/download/0.46.0/om-darwin \
+  --tap aegershman/homebrew-tap
+```
