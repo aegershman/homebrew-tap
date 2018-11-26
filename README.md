@@ -6,6 +6,8 @@ Using this as an opportunity to learn how to create and maintain homebrew taps. 
 
 - [formula-cookbook](https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md)
 
+- [acceptable-formula](https://docs.brew.sh/Acceptable-Formulae)
+
 - helpful commands:
 
 ```sh
