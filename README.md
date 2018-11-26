@@ -8,6 +8,8 @@ Using this as an opportunity to learn how to create and maintain homebrew taps. 
 
 - [acceptable-formula](https://docs.brew.sh/Acceptable-Formulae)
 
+- [old, but interesting: "Distributing Your Home Grown Tools to the Masses with Homebrew"](https://tech.cars.com/distributing-your-home-grown-tools-to-the-masses-with-homebrew-acb7a62518a8)
+
 - helpful commands:
 
 ```sh
