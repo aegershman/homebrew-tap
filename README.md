@@ -31,10 +31,14 @@ brew create \
   --tap aegershman/homebrew-tap
 ```
 
-- and the `cf-mgmt` tap:
+- and the `cf-mgmt-config` + `cf-mgmt` taps:
 
 ```sh
 brew create \
   https://github.com/pivotalservices/cf-mgmt/releases/download/v1.0.11/cf-mgmt-config-osx \
+  --tap aegershman/homebrew-tap
+
+brew create \
+  https://github.com/pivotalservices/cf-mgmt/releases/download/v1.0.11/cf-mgmt-osx \
   --tap aegershman/homebrew-tap
 ```
