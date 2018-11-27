@@ -10,6 +10,6 @@ class CfMgmt < Formula
   end
 
   test do
-    cf-mgmt version
+    "cf-mgmt version"
   end
 end
