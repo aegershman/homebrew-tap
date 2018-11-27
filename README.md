@@ -30,3 +30,11 @@ brew create \
   https://github.com/pivotal-cf/om/releases/download/0.46.0/om-darwin \
   --tap aegershman/homebrew-tap
 ```
+
+- and the `cf-mgmt` tap:
+
+```sh
+brew create \
+  https://github.com/pivotalservices/cf-mgmt/releases/download/v1.0.11/cf-mgmt-config-osx \
+  --tap aegershman/homebrew-tap
+```
