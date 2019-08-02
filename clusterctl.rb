@@ -1,7 +1,7 @@
 # Documentation: https://docs.brew.sh/Formula-Cookbook
 #                https://rubydoc.brew.sh/Formula
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
-class ClusterApiProviderAws < Formula
+class Clusterctl < Formula
   desc ""
   homepage ""
   url "https://github.com/kubernetes-sigs/cluster-api-provider-aws/releases/download/v0.3.6/clusterctl-darwin-amd64"
