@@ -1,9 +1,9 @@
 class CfMgmt < Formula
   desc "x"
   homepage "https://github.com/pivotalservices/cf-mgmt"
-  url "https://github.com/pivotalservices/cf-mgmt/releases/download/v1.0.28/cf-mgmt-osx"
-  sha256 "9af3d31535f89b854523424a5c8aeb86752db655332490ccbf2edcd031392821"
-  version "1.0.28"
+  url "https://github.com/pivotalservices/cf-mgmt/releases/download/v1.0.29/cf-mgmt-osx"
+  version "1.0.29"
+  sha256 "26324afecde49c587f5ca151ccab1d38413c80d6ad99f01f9d9de4978776778c"
 
   def install
     mv "cf-mgmt-osx", "cf-mgmt"
