@@ -10,12 +10,13 @@ vars:
 tasks:
   update:
     cmds:
+      - task: download
       - task: calculate-checksum
 
   download:
     vars:
       VERSION: '{{.VERSION | default "v0.0.0"}}'
-      ARTIFACT: '{{.ARTIFACT | default "some-bin-darwin-amd64"}'
+      ARTIFACT: '{{.ARTIFACT | default "some-bin-darwin-amd64"}}'
       URL: '{{.URL | default "https://github.com/EXAMPLE_ORG/EXAMPLE_REPO/releases/download/{{.VERSION}}/{{.EXAMPLE_ARTIFACT}}"}}'
     status:
       - test -f {{.ARTIFACT}}
@@ -24,7 +25,6 @@ tasks:
       - chmod +x {{.ARTIFACT}}
 
   calculate-checksum:
-    silent: true
     vars:
       ARTIFACT: '{{.ARTIFACT | default "_"}}'
       SHASUM:
