@@ -40,5 +40,6 @@ tasks:
       - test -f {{.ARTIFACT}}
     cmds:
       - |
-        SHA=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
-        cat {{.TAP_RUBY_FILE}}
+        SHASUM=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
+        sed -i -e "s/sha256 \\\".*\\\" # CI Managed/sha256 \\\"${SHASUM}\\\"
+
