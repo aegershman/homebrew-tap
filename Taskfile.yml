@@ -27,12 +27,12 @@ tasks:
       - chmod +x {{.ARTIFACT}}
 
   calculate-checksum:
+    silent: true
     dir: "{{.WORKDIR}}"
     vars:
-      ARTIFACT: '{{.ARTIFACT | default "x"}}'
-      SHASUM:
-        sh: shasum -a 256 {{.ARTIFACT | default "x"}} | cut -d ' ' -f 1
+      ARTIFACT: '{{.ARTIFACT | default ""}}'
     preconditions:
       - test -f {{.ARTIFACT}}
     cmds:
-      - echo {{.SHASUM}}
+      - |
+        shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1
