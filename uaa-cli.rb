@@ -7,7 +7,7 @@ class UaaCli < Formula
   sha256 "2139b4eb70d0f56193cbd97e5e6dc5c83b208d37423882a70a7e9b3081528792"
 
   def install
-    mv "uaa-darwin-amd64*", "uaa"
+    mv Dir.glob("uaa-darwin-amd64*").first, "uaa"
     bin.install "uaa"
   end
 
