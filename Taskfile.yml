@@ -1,6 +1,7 @@
 version: "2"
 
 vars:
+  WORKDIR: tmp
   GH_ORG: kubernetes-sigs
   GH_REPO: kind
   VERSION: v0.5.1
@@ -14,6 +15,7 @@ tasks:
       - task: calculate-checksum
 
   download:
+    dir: {{.WORKDIR}}
     vars:
       VERSION: '{{.VERSION | default "v0.0.0"}}'
       ARTIFACT: '{{.ARTIFACT | default "some-bin-darwin-amd64"}}'
@@ -25,6 +27,7 @@ tasks:
       - chmod +x {{.ARTIFACT}}
 
   calculate-checksum:
+    dir: {{.WORKDIR}}
     vars:
       ARTIFACT: '{{.ARTIFACT | default "_"}}'
       SHASUM:
