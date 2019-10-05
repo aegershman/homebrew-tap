@@ -1,0 +1,27 @@
+version: "2"
+
+tasks:
+  update:
+    cmds:
+      - task: calculate-checksum
+        # vars:
+        #   TARGET: kind
+
+  calculate-checksum:
+    silent: true
+    vars:
+      TARGET: '{{.TARGET | default ""}}'
+      SHASUM:
+        sh: shasum -a 256 {{.TARGET | default ""}} | cut -d ' ' -f 1
+    cmds:
+      - echo {{.SHASUM}}
+
+  download:
+    vars:
+      VERSION: v0.5.1
+      URL: https://github.com/kubernetes-sigs/kind/releases/download/{{.VERSION}}/kind-darwin-amd64
+    status:
+      - test -f kind
+    cmds:
+      - curl --location --silent {{.URL}} --output kind
+      - chmod +x kind
