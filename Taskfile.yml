@@ -2,10 +2,10 @@ version: "2"
 
 vars:
   WORKDIR: tmp
-  GH_ORG: kubernetes-sigs
-  GH_REPO: kind
-  VERSION: v0.5.1
-  ARTIFACT: kind-darwin-amd64
+  GH_ORG: "" # override_me
+  GH_REPO: "" # override_me
+  VERSION: v0.0.0 # override_me
+  ARTIFACT: x-darwin-amd64 # override_me
   URL: https://github.com/{{.GH_ORG}}/{{.GH_REPO}}/releases/download/{{.VERSION}}/{{.ARTIFACT}}
 
 tasks:
