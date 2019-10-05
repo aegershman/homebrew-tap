@@ -1,11 +1,14 @@
 version: "2"
 
+vars:
+  TARGET: kind
+  URL: https://github.com/kubernetes-sigs/kind/releases/download/{{.VERSION}}/kind-darwin-amd64
+  VERSION: v0.5.1
+
 tasks:
   update:
     cmds:
       - task: calculate-checksum
-        # vars:
-        #   TARGET: kind
 
   calculate-checksum:
     silent: true
@@ -18,10 +21,11 @@ tasks:
 
   download:
     vars:
-      VERSION: v0.5.1
-      URL: https://github.com/kubernetes-sigs/kind/releases/download/{{.VERSION}}/kind-darwin-amd64
+      VERSION: '{{.VERSION | default "v0.0.0"}}'
+      ARTIFACT: '{{.ARTIFACT | default ""}'
+      URL: '{{.URL | default "https://github.com/EXAMPLE_ORG/EXAMPLE_REPO/releases/download/{{.VERSION}}/{{.EXAMPLE_ARTIFACT}}"}}'
     status:
-      - test -f kind
+      - test -f {{.ARTIFACT}}
     cmds:
-      - curl --location --silent {{.URL}} --output kind
-      - chmod +x kind
+      - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
+      - chmod +x {{.ARTIFACT}}
