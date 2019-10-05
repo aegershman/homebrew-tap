@@ -1,31 +1,33 @@
 version: "2"
 
 vars:
-  TARGET: kind
-  URL: https://github.com/kubernetes-sigs/kind/releases/download/{{.VERSION}}/kind-darwin-amd64
+  GH_ORG: kubernetes-sigs
+  GH_REPO: kind
   VERSION: v0.5.1
+  ARTIFACT: kind-darwin-amd64
+  URL: https://github.com/{{.GH_ORG}}/{{.GH_REPO}}/releases/download/{{.VERSION}}/{{.ARTIFACT}}
 
 tasks:
   update:
     cmds:
       - task: calculate-checksum
 
-  calculate-checksum:
-    silent: true
-    vars:
-      TARGET: '{{.TARGET | default ""}}'
-      SHASUM:
-        sh: shasum -a 256 {{.TARGET | default ""}} | cut -d ' ' -f 1
-    cmds:
-      - echo {{.SHASUM}}
-
   download:
     vars:
       VERSION: '{{.VERSION | default "v0.0.0"}}'
-      ARTIFACT: '{{.ARTIFACT | default ""}'
+      ARTIFACT: '{{.ARTIFACT | default "some-bin-darwin-amd64"}'
       URL: '{{.URL | default "https://github.com/EXAMPLE_ORG/EXAMPLE_REPO/releases/download/{{.VERSION}}/{{.EXAMPLE_ARTIFACT}}"}}'
     status:
       - test -f {{.ARTIFACT}}
     cmds:
       - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
       - chmod +x {{.ARTIFACT}}
+
+  calculate-checksum:
+    silent: true
+    vars:
+      ARTIFACT: '{{.ARTIFACT | default "_"}}'
+      SHASUM:
+        sh: shasum -a 256 {{.ARTIFACT | default "_"}} | cut -d ' ' -f 1
+    cmds:
+      - echo {{.SHASUM}}
