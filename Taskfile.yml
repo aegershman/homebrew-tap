@@ -9,6 +9,14 @@ vars:
   TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default "x-darwin-amd64.rb"}}'
 
 tasks:
+  create:
+    vars:
+      URL: '{{.URL | default ""}}'
+      TAP: aegershman/homebrew-tap
+    cmds:
+      - brew create {{.URL}} --tap {{.TAP}}
+      - echo 'cd $(brew --repo {{.TAP}})'
+
   clean:
     vars:
       ARTIFACT: '{{.ARTIFACT | default ""}}'
@@ -29,7 +37,7 @@ tasks:
       - test -f {{.ARTIFACT}}
     cmds:
       - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
-      - chmod +x {{.ARTIFACT}}
+      - chmod +x {{.ARTIFACT}} # optional
 
   replace:
     vars:
