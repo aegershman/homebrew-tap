@@ -15,11 +15,11 @@ tasks:
       - task: calculate-checksum
 
   download:
-    dir: {{.WORKDIR}}
+    dir: "{{.WORKDIR}}"
     vars:
-      VERSION: '{{.VERSION | default "v0.0.0"}}'
-      ARTIFACT: '{{.ARTIFACT | default "some-bin-darwin-amd64"}}'
-      URL: '{{.URL | default "https://github.com/EXAMPLE_ORG/EXAMPLE_REPO/releases/download/{{.VERSION}}/{{.EXAMPLE_ARTIFACT}}"}}'
+      VERSION: '{{.VERSION | default ""}}'
+      ARTIFACT: '{{.ARTIFACT | default ""}}'
+      URL: '{{.URL | default ""}}'
     status:
       - test -f {{.ARTIFACT}}
     cmds:
@@ -27,10 +27,12 @@ tasks:
       - chmod +x {{.ARTIFACT}}
 
   calculate-checksum:
-    dir: {{.WORKDIR}}
+    dir: "{{.WORKDIR}}"
     vars:
-      ARTIFACT: '{{.ARTIFACT | default "_"}}'
+      ARTIFACT: '{{.ARTIFACT | default ""}}'
       SHASUM:
-        sh: shasum -a 256 {{.ARTIFACT | default "_"}} | cut -d ' ' -f 1
+        sh: shasum -a 256 {{.ARTIFACT | default ""}} | cut -d ' ' -f 1
+    preconditions:
+      - test -f {{.ARTIFACT}}
     cmds:
       - echo {{.SHASUM}}
