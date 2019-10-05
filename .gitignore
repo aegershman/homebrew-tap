@@ -52,4 +52,4 @@ build-iPhoneSimulator/
 .DS_Store
 .vscode
 
-*-amd64
+*-amd64*
