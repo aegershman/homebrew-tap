@@ -29,9 +29,9 @@ tasks:
   calculate-checksum:
     dir: "{{.WORKDIR}}"
     vars:
-      ARTIFACT: '{{.ARTIFACT | default ""}}'
+      ARTIFACT: '{{.ARTIFACT | default "x"}}'
       SHASUM:
-        sh: shasum -a 256 {{.ARTIFACT | default ""}} | cut -d ' ' -f 1
+        sh: shasum -a 256 {{.ARTIFACT | default "x"}} | cut -d ' ' -f 1
     preconditions:
       - test -f {{.ARTIFACT}}
     cmds:
