@@ -12,7 +12,7 @@ tasks:
   update:
     cmds:
       - task: download
-      - task: calculate-checksum
+      - task: checksum
 
   download:
     dir: "{{.WORKDIR}}"
@@ -26,8 +26,7 @@ tasks:
       - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
       - chmod +x {{.ARTIFACT}}
 
-  calculate-checksum:
-    silent: true
+  checksum:
     dir: "{{.WORKDIR}}"
     vars:
       ARTIFACT: '{{.ARTIFACT | default ""}}'
