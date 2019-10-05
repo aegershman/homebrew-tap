@@ -1,21 +1,27 @@
 version: "2"
 
 vars:
-  WORKDIR: '{{.WORKDIR | default "tmp"}}'
   GH_ORG: '{{.GH_ORG | default "override_me"}}'
   GH_REPO: '{{.GH_REPO | default "override_me"}}'
   VERSION: '{{.VERSION | default "v0.0.0"}}'
   ARTIFACT: '{{.ARTIFACT | default "x-darwin-amd64"}}'
   URL: https://github.com/{{.GH_ORG}}/{{.GH_REPO}}/releases/download/{{.VERSION}}/{{.ARTIFACT}}
+  TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default "x-darwin-amd64.rb"}}'
 
 tasks:
+
+  clean:
+    vars:
+      ARTIFACT: '{{.ARTIFACT | default ""}}'
+    cmds:
+    - rm {{.ARTIFACT}}
+
   update:
     cmds:
       - task: download
       - task: checksum
 
   download:
-    dir: "{{.WORKDIR}}"
     vars:
       VERSION: '{{.VERSION | default ""}}'
       ARTIFACT: '{{.ARTIFACT | default ""}}'
@@ -27,11 +33,12 @@ tasks:
       - chmod +x {{.ARTIFACT}}
 
   checksum:
-    dir: "{{.WORKDIR}}"
     vars:
       ARTIFACT: '{{.ARTIFACT | default ""}}'
+      TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default ""}}'
     preconditions:
       - test -f {{.ARTIFACT}}
     cmds:
       - |
-        shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1
+        SHA=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
+        cat {{.TAP_RUBY_FILE}}
