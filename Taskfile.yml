@@ -14,8 +14,10 @@ tasks:
       URL: '{{.URL | default ""}}'
       TAP: aegershman/homebrew-tap
     cmds:
-      - brew create {{.URL}} --tap {{.TAP}}
-      - echo 'cd $(brew --repo {{.TAP}})'
+      - brew tap {{.TAP}}
+      - brew create {{.URL}} --tap {{.TAP}} || true
+      - cd $(brew --repo {{.TAP}})
+      - git remote set-url origin git@github.com:aegershman/homebrew-tap.git
 
   clean:
     vars:
