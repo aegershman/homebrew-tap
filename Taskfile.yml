@@ -1,0 +1,45 @@
+version: "2"
+
+vars:
+  GH_ORG: '{{.GH_ORG | default "override_me"}}'
+  GH_REPO: '{{.GH_REPO | default "override_me"}}'
+  VERSION: '{{.VERSION | default "v0.0.0"}}'
+  ARTIFACT: '{{.ARTIFACT | default "x-darwin-amd64"}}'
+  URL: https://github.com/{{.GH_ORG}}/{{.GH_REPO}}/releases/download/{{.VERSION}}/{{.ARTIFACT}}
+  TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default "x-darwin-amd64.rb"}}'
+
+tasks:
+  clean:
+    vars:
+      ARTIFACT: '{{.ARTIFACT | default ""}}'
+    cmds:
+      - rm {{.ARTIFACT}}
+
+  update:
+    cmds:
+      - task: download
+      - task: replace
+
+  download:
+    vars:
+      VERSION: '{{.VERSION | default ""}}'
+      ARTIFACT: '{{.ARTIFACT | default ""}}'
+      URL: '{{.URL | default ""}}'
+    status:
+      - test -f {{.ARTIFACT}}
+    cmds:
+      - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
+      - chmod +x {{.ARTIFACT}}
+
+  replace:
+    vars:
+      ARTIFACT: '{{.ARTIFACT | default ""}}'
+      TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default ""}}'
+      VERSION: '{{.VERSION | default ""}}'
+    preconditions:
+      - test -f {{.ARTIFACT}}
+    cmds:
+      - |
+        SHASUM=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
+        sed -i '' -e "s/sha256 \\\".*\\\"/sha256 \\\"${SHASUM}\\\"/" {{.TAP_RUBY_FILE}}
+        sed -i '' -e "s/v = \\\".*\\\"/v = \\\"{{.VERSION}}\\\"/" {{.TAP_RUBY_FILE}}
