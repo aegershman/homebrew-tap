@@ -9,12 +9,11 @@ vars:
   TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default "x-darwin-amd64.rb"}}'
 
 tasks:
-
   clean:
     vars:
       ARTIFACT: '{{.ARTIFACT | default ""}}'
     cmds:
-    - rm {{.ARTIFACT}}
+      - rm {{.ARTIFACT}}
 
   update:
     cmds:
@@ -41,5 +40,4 @@ tasks:
     cmds:
       - |
         SHASUM=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
-        sed -i -e "s/sha256 \\\".*\\\" # CI Managed/sha256 \\\"${SHASUM}\\\"
-
+        sed -i '' -e "s/sha256 \\\".*\\\"/sha256 \\\"${SHASUM}\\\"/" {{.TAP_RUBY_FILE}}
