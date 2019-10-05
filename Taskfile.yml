@@ -18,7 +18,7 @@ tasks:
   update:
     cmds:
       - task: download
-      - task: checksum
+      - task: replace
 
   download:
     vars:
@@ -31,13 +31,15 @@ tasks:
       - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
       - chmod +x {{.ARTIFACT}}
 
-  checksum:
+  replace:
     vars:
       ARTIFACT: '{{.ARTIFACT | default ""}}'
       TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default ""}}'
+      VERSION: '{{.VERSION | default ""}}'
     preconditions:
       - test -f {{.ARTIFACT}}
     cmds:
       - |
         SHASUM=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
         sed -i '' -e "s/sha256 \\\".*\\\"/sha256 \\\"${SHASUM}\\\"/" {{.TAP_RUBY_FILE}}
+        sed -i '' -e "s/v = \\\".*\\\"/v = \\\"{{.VERSION}}\\\"/" {{.TAP_RUBY_FILE}}
