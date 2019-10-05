@@ -18,7 +18,7 @@ tasks:
       - brew create {{.URL}} --tap {{.TAP}} || true
       - |
         cd $(brew --repo {{.TAP}})
-        git remote set-url origin git@github.com:aegershman/homebrew-tap.git
+        git remote set-url origin git@github.com:{{.TAP}}.git
 
   clean:
     vars:
@@ -40,7 +40,6 @@ tasks:
       - test -f {{.ARTIFACT}}
     cmds:
       - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
-      - chmod +x {{.ARTIFACT}} # optional
 
   replace:
     vars:
