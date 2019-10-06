@@ -1,0 +1,8 @@
+# Don't want this file to actually be used
+# just keeping it here for reference
+---
+GH_ORG: kubernetes-sigs
+GH_REPO: kind
+VERSION: v0.5.1
+ARTIFACT: kind-darwin-amd64
+TAP_RUBY_FILE: kind.rb

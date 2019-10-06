@@ -10,6 +10,7 @@ vars:
 
 tasks:
   create:
+    desc: create a new tap based on current env files
     vars:
       URL: '{{.URL | default ""}}'
       TAP: aegershman/homebrew-tap
@@ -21,17 +22,24 @@ tasks:
         git remote set-url origin git@github.com:{{.TAP}}.git
 
   clean:
-    vars:
-      ARTIFACT: '{{.ARTIFACT | default ""}}'
+    desc: remove any amd64 binaries in working directory
     cmds:
-      - rm {{.ARTIFACT}}
+      - rm *amd64*
+
+  commit:
+    desc: autocommit; pretty gross, but whatever
+    cmds:
+      - git add -A
+      - git commit -m "autocommit"
 
   update:
+    desc: lifecycle of downloading github release binary and update it's tap.rb file
     cmds:
       - task: download
       - task: replace
 
   download:
+    desc: download the github release binary
     vars:
       VERSION: '{{.VERSION | default ""}}'
       ARTIFACT: '{{.ARTIFACT | default ""}}'
@@ -42,6 +50,7 @@ tasks:
       - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
 
   replace:
+    desc: update tap.rb with sha256 and version file
     vars:
       ARTIFACT: '{{.ARTIFACT | default ""}}'
       TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default ""}}'
