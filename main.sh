@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 case "$1" in
 *)
   TARGET="$1"
