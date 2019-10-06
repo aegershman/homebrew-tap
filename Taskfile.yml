@@ -5,6 +5,7 @@ vars:
   GH_REPO: '{{.GH_REPO | default "override_me"}}'
   VERSION: '{{.VERSION | default "v0.0.0"}}'
   ARTIFACT: '{{.ARTIFACT | default "x-darwin-amd64"}}'
+  VERSION_FOLDER: '{{.VERSION_FOLDER | default ""}}'
   URL: https://github.com/{{.GH_ORG}}/{{.GH_REPO}}/releases/download/{{.VERSION}}/{{.ARTIFACT}}
   TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default "x-darwin-amd64.rb"}}'
 
@@ -36,6 +37,7 @@ tasks:
     desc: lifecycle of downloading github release binary and update it's tap.rb file
     cmds:
       - task: download
+      - task: update-shasum
       - task: replace
 
   download:
@@ -49,16 +51,29 @@ tasks:
     cmds:
       - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
 
-  replace:
-    desc: update tap.rb with sha256 and version file
+  update-shasum:
+    desc: updates sha256 from an artifact
     vars:
       ARTIFACT: '{{.ARTIFACT | default ""}}'
-      TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default ""}}'
-      VERSION: '{{.VERSION | default ""}}'
+      VERSION_FOLDER: '{{.VERSION_FOLDER | default ""}}'
     preconditions:
       - test -f {{.ARTIFACT}}
     cmds:
       - |
         SHASUM=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
+        echo $SHASUM > versions/{{.VERSION_FOLDER}}/sha256
+
+  replace:
+    desc: update sha256 and version of tap.rb
+    vars:
+      TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default ""}}'
+      VERSION_FOLDER: '{{.VERSION_FOLDER | default ""}}'
+    preconditions:
+      - test -f versions/{{.VERSION_FOLDER}}/sha256
+      - test -f versions/{{.VERSION_FOLDER}}/version
+    cmds:
+      - |
+        SHASUM=$(cat versions/{{.VERSION_FOLDER}}/sha256)
+        VERSION=$(cat versions/{{.VERSION_FOLDER}}/version)
         sed -i '' -e "s/sha256 \\\".*\\\"/sha256 \\\"${SHASUM}\\\"/" {{.TAP_RUBY_FILE}}
-        sed -i '' -e "s/v = \\\".*\\\"/v = \\\"{{.VERSION}}\\\"/" {{.TAP_RUBY_FILE}}
+        sed -i '' -e "s/v = \\\".*\\\"/v = \\\"$VERSION\\\"/" {{.TAP_RUBY_FILE}}
