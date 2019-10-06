@@ -24,4 +24,4 @@ after created the repo, tapped using `brew tap aegershman/homebrew-tap`, and `cd
 notepad
 
 - Creating the tap should read from the version-files
-- Listener should check available verions from github and compare to version-file
+- [Listener should check available verions from github and compare to version-file](https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c)
