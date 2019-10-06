@@ -13,7 +13,7 @@ tasks:
     cmds:
       - |
         fetch --repo="https://github.com/gruntwork-io/fetch" \
-          --tag="v0.3.6" \
+          --tag="~>v0.3" \
           --release-asset="fetch_darwin_amd64" .
 
   create:
