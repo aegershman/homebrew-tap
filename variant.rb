@@ -2,7 +2,7 @@ class Variant < Formula
   homepage "https://github.com/mumoshu/variant"
   desc "Wrap up your bash scripts into a modern CLI today. Graduate to a full-blown golang app tomorrow."
 
-  v = "v0.35.1"
+  v = "v0.35.0"
   @@verNum = v.sub "v", ""
   url "https://github.com/mumoshu/variant/releases/download/#{v}/variant_#{@@verNum}_darwin_amd64.tar.gz"
   version v

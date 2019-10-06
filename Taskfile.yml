@@ -38,6 +38,7 @@ tasks:
     cmds:
       - task: download
       - task: update-shasum
+      - task: update-version
       - task: replace
 
   download:
@@ -62,6 +63,14 @@ tasks:
       - |
         SHASUM=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
         echo $SHASUM > versions/{{.VERSION_FOLDER}}/sha256
+
+  update-version:
+    desc: updates version from version specified in env. Should be removed some day.
+    vars:
+      VERSION: '{{.VERSION | default "v0.0.0"}}'
+      VERSION_FOLDER: '{{.VERSION_FOLDER | default ""}}'
+    cmds:
+      - echo {{.VERSION}} > versions/{{.VERSION_FOLDER}}/version
 
   replace:
     desc: update sha256 and version of tap.rb
