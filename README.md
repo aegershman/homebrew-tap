@@ -19,6 +19,10 @@ brew create \
 
 after created the repo, tapped using `brew tap aegershman/homebrew-tap`, and `cd`ing into the directory with `cd $(brew --repo aegershman/homebrew-tap)`, had to set the remote origin to the `ssh` version rather than `https` using `git@github.com:aegershman/homebrew-tap.git`.
 
+```sh
+git remote set-url origin git@github.com:aegershman/homebrew-tap.git
+```
+
 ---
 
 notepad
