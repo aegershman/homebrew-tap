@@ -27,15 +27,13 @@ tasks:
       - rm *amd64*
 
   commit:
-    desc: pretty gross, but autocommit
+    desc: autocommit; pretty gross, but whatever
     cmds:
       - git add -A
       - git commit -m "autocommit"
 
   update:
-    desc: |
-      lifecycle of downloading github release
-      binary and update it's tap.rb file
+    desc: lifecycle of downloading github release binary and update it's tap.rb file
     cmds:
       - task: download
       - task: replace
