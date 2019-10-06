@@ -21,10 +21,8 @@ tasks:
         git remote set-url origin git@github.com:{{.TAP}}.git
 
   clean:
-    vars:
-      ARTIFACT: '{{.ARTIFACT | default ""}}'
     cmds:
-      - rm {{.ARTIFACT}}
+      - rm *amd64*
 
   update:
     cmds:
