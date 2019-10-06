@@ -18,7 +18,7 @@ kind)
   ;;
 
 fetch)
-  export GH_ORG=groundwork-io
+  export GH_ORG=gruntwork-io
   export GH_REPO=fetch
   export VERSION=v0.3.7
   export ARTIFACT=fetch_darwin_amd64

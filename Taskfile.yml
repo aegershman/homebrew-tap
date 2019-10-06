@@ -24,6 +24,11 @@ tasks:
     cmds:
       - rm *amd64*
 
+  commit:
+    cmds:
+      - git add -A
+      - git commit -m "autocommit"
+
   update:
     cmds:
       - task: download
