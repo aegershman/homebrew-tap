@@ -16,6 +16,14 @@ kind)
   export ARTIFACT=kind-darwin-amd64
   export TAP_RUBY_FILE=kind.rb
   ;;
+
+fetch)
+  export GH_ORG=groundwork-io
+  export GH_REPO=fetch
+  export VERSION=v0.3.7
+  export ARTIFACT=fetch_darwin_amd64
+  export TAP_RUBY_FILE=fetch.rb
+  ;;
 esac
 
 task update
