@@ -50,15 +50,15 @@ tasks:
       - curl --location --silent {{.URL}} --output {{.ARTIFACT}}
 
   replace:
-    desc: update tap.rb with sha256 and version file
+    desc: update sha256 and version of tap.rb
     vars:
       ARTIFACT: '{{.ARTIFACT | default ""}}'
       TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default ""}}'
-      VERSION: '{{.VERSION | default ""}}'
     preconditions:
       - test -f {{.ARTIFACT}}
     cmds:
       - |
         SHASUM=$(shasum -a 256 {{.ARTIFACT}} | cut -d ' ' -f 1)
+        VERSION=$(cat versions/{{.ARTIFACT}}/version)
         sed -i '' -e "s/sha256 \\\".*\\\"/sha256 \\\"${SHASUM}\\\"/" {{.TAP_RUBY_FILE}}
-        sed -i '' -e "s/v = \\\".*\\\"/v = \\\"{{.VERSION}}\\\"/" {{.TAP_RUBY_FILE}}
+        sed -i '' -e "s/v = \\\".*\\\"/v = \\\"$VERSION\\\"/" {{.TAP_RUBY_FILE}}
