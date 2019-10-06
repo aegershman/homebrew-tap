@@ -9,6 +9,13 @@ vars:
   TAP_RUBY_FILE: '{{.TAP_RUBY_FILE | default "x-darwin-amd64.rb"}}'
 
 tasks:
+  fetch:
+    cmds:
+      - |
+        fetch --repo="https://github.com/gruntwork-io/fetch" \
+          --tag="v0.3.6" \
+          --release-asset="fetch_darwin_amd64" .
+
   create:
     desc: create a new tap based on current env files
     vars:
