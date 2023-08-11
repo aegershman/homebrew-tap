@@ -1,3 +1,3 @@
-# homebrew-tools
+# homebrew-tap
 
 personal homebrew tools
